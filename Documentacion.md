@@ -20,15 +20,18 @@ KeKomo ofrece dos modos de uso: **grupo** e **individual**.
 
 ## Tecnologías usadas
 - **Frontend**: HTML, CSS, JavaScript.
-- **Backend**: .
-- **API**:.
-- **Diseño**:.
 
 ## Instalación
-###1️⃣ Clonar el repositorrio.
-###2️⃣ Ejecutar el proyecto: abrir "index.html" en el navegador.
+### 1️⃣ Clonar el repositorrio.
+### 2️⃣ Ejecutar el proyecto: abrir "index.html" en el navegador.
 
-## Estructura del proyecto
+## Estructura del proyecto  
+📁 **HackUDC2025** *(Repositorio principal)*  
+│── 📄 **Documentacion.md** → Documentación principal del proyecto
+│── 📄 **JavaScript.js** → Código JavaScript principal para la app  
+│── 📄 **MainScreen.html** → Archivo HTML de la pantalla principal  
+│── 📄 **MainScreen.css** → Estilos CSS para la pantalla principal  
+│── 🖼️ **wardrobe-line-icon-high-quality-260nw-50970...** → Imagen/icono usado en la app  
 
 ## Mejoras futuras
 - Agregar chat en tiempo real para discutir las opciones.
