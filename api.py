@@ -1,10 +1,14 @@
 from flask import Flask, jsonify, request
 from flask_sqlalchemy import SQLAlchemy
+from flask_jwt_extended import JWTManager, create_access_token, jwt_required, get_jwt_identity
+from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///app.db'  # Usamos SQLite
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False  # Desactivar seguimiento de modificaciones
+app.config['JWT_SECRET_KEY'] = 'tu_clave_secreta'  # Cambia esto por una clave secreta segura
 db = SQLAlchemy(app)
+jwt = JWTManager(app)
 
 # Tabla intermedia para la relación muchos a muchos
 user_group = db.Table('user_group',
@@ -16,7 +20,7 @@ class User(db.Model):
     user_id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(80), unique=True, nullable=False)
     email = db.Column(db.String(120), unique=True, nullable=False)
-
+    password = db.Column(db.String(200), nullable=False)  # Campo de contraseña
     # Relación muchos a muchos con los grupos
     groups = db.relationship('Group', secondary=user_group, backref=db.backref('users', lazy='dynamic'))
 
@@ -31,9 +35,9 @@ def create_tables():
     db.create_all()
 
 # Rutas para interactuar con los usuarios y grupos
-
 # Obtener todos los usuarios
 @app.route('/users', methods=['GET'])
+@jwt_required()
 def get_users():
     users = User.query.all()
     return jsonify([{
@@ -45,6 +49,7 @@ def get_users():
 
 # Obtener un usuario por su ID
 @app.route('/users/<int:user_id>', methods=['GET'])
+@jwt_required()
 def get_user(user_id):
     user = User.query.get_or_404(user_id)
     return jsonify({
@@ -58,7 +63,8 @@ def get_user(user_id):
 @app.route('/users', methods=['POST'])
 def add_user():
     data = request.get_json()
-    new_user = User(username=data['username'], email=data['email'])
+    hashed_password = generate_password_hash(data['password'], method='sha256')
+    new_user = User(username=data['username'], email=data['email'], password=hashed_password)
     db.session.add(new_user)
     db.session.commit()
     return jsonify({
@@ -82,6 +88,7 @@ def add_group():
 
 # Obtener todos los grupos
 @app.route('/groups', methods=['GET'])
+@jwt_required()
 def get_groups():
     groups = Group.query.all()
     return jsonify([{
@@ -92,6 +99,7 @@ def get_groups():
 
 # Obtener un grupo por su ID
 @app.route('/groups/<int:group_id>', methods=['GET'])
+@jwt_required()
 def get_group(group_id):
     group = Group.query.get_or_404(group_id)
     return jsonify({
@@ -102,6 +110,7 @@ def get_group(group_id):
 
 # Asignar un grupo a un usuario
 @app.route('/users/<int:user_id>/groups/<int:group_id>', methods=['POST'])
+@jwt_required()
 def add_user_to_group(user_id, group_id):
     user = User.query.get_or_404(user_id)
     group = Group.query.get_or_404(group_id)
@@ -117,10 +126,10 @@ def add_user_to_group(user_id, group_id):
 
 # Eliminar un grupo de un usuario
 @app.route('/users/<int:user_id>/groups/<int:group_id>', methods=['DELETE'])
+@jwt_required()
 def remove_user_from_group(user_id, group_id):
     user = User.query.get_or_404(user_id)
     group = Group.query.get_or_404(group_id)
-
     if group in user.groups:
         user.groups.remove(group)
         db.session.commit()
@@ -129,6 +138,27 @@ def remove_user_from_group(user_id, group_id):
         }), 200
     else:
         return jsonify({'message': 'User is not a member of this group'}), 400
+
+# Ruta para iniciar sesión y obtener un token
+@app.route('/login', methods=['POST'])
+def login():
+    data = request.get_json()
+    username = data.get('username')
+    password = data.get('password')
+    user = User.query.filter_by(username=username).first()
+    if user and check_password_hash(user.password, password):
+        access_token = create_access_token(identity=user.user_id)
+        return jsonify(access_token=access_token), 200
+    else:
+        return jsonify({"msg": "Usuario o contraseña incorrectos"}), 401
+
+# Ruta protegida que requiere un token válido
+@app.route('/protected', methods=['GET'])
+@jwt_required()
+def protected():
+    current_user_id = get_jwt_identity()
+    user = User.query.get(current_user_id)
+    return jsonify(logged_in_as=user.username), 200
 
 # Ejecutar la aplicación
 if __name__ == '__main__':
