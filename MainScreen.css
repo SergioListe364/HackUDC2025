@@ -125,3 +125,19 @@ header{
     opacity: 0.5;
     pointer-events: none;
 }
+
+.continuar {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.boton_continuar {
+    background-color: #45A049;
+    text-align: center;
+    padding: 6px 9px; /* Cambié la coma por un espacio */
+    color: white;
+    border-radius: 8px;
+    margin: auto;
+    transition: all 0.2s ease;
+}
