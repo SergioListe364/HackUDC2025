@@ -71,7 +71,7 @@ body {
     margin: 2rem auto;
   }
   
-  button {
+  button, grupo{
     padding: 1rem 2rem;
     font-size: 1.2rem;
     background-color: white;
@@ -83,7 +83,7 @@ body {
 }
 
   
-  button:hover {
+  button:hover, grupo:hover {
     background-color: #45a049;
     color: white;
   }
