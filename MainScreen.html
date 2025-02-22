@@ -3,13 +3,57 @@
 <head>
     <meta charsert="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MyWardrobe</title>
+    <title>KeKomo?</title>
     <link rel="stylesheet" href="MainScreen.css">
-    <script src=""></script>" <!--Poner aquí nombre documento javascript-->
+    <script src="JavaScript.js"></script>
 </head>
 <body>
+    <header>KeKomo?</header>
 
-    
+  <h1>Elige hasta 3 opciones</h1>
+  
+  <form id="formOpciones">
+    <label><input type="checkbox" name="opcion" value="Pizza"> Pizza</label><br>
+    <label><input type="checkbox" name="opcion" value="Asador"> Asador</label><br>
+    <label><input type="checkbox" name="opcion" value="Hamburgueseria"> Hamburgueseria</label><br>
+    <label><input type="checkbox" name="opcion" value="Italiano"> Italiano</label><br>
+    <label><input type="checkbox" name="opcion" value="Koreano"> Koreano</label><br>
+    <label><input type="checkbox" name="opcion" value="Sushi"> Sushi</label><br>
+    <label><input type="checkbox" name="opcion" value="Mexicano"> Mexicano</label><br>
+    <label><input type="checkbox" name="opcion" value="Griego"> Griego</label><br>
+    <label><input type="checkbox" name="opcion" value="Turco"> Turco</label><br>
+    <label><input type="checkbox" name="opcion" value="Tailandes"> Tailandés</label><br>
+    <label><input type="checkbox" name="opcion" value="Tapas"> Tapas</label><br>
+    <label><input type="checkbox" name="opcion" value="Chino"> Chino</label><br>
+    <label><input type="checkbox" name="opcion" value="Indio"> Indio</label><br>
+</form>
 
+  <p id="resultado"></p>
+
+  <script>
+    const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+    const resultado = document.getElementById('resultado');
+
+    checkboxes.forEach(checkbox => {
+      checkbox.addEventListener('change', () => {
+        const seleccionadas = document.querySelectorAll('input[type="checkbox"]:checked');
+        
+        // Mostrar opciones seleccionadas
+        const valoresSeleccionados = Array.from(seleccionadas).map(cb => cb.value);
+        resultado.textContent = `Seleccionaste: ${valoresSeleccionados.join(', ')}`;
+
+        // Limitar a 3 selecciones
+        if (seleccionadas.length >= 3) {
+          checkboxes.forEach(cb => {
+            if (!cb.checked) {
+              cb.disabled = true;
+            }
+          });
+        } else {
+          checkboxes.forEach(cb => cb.disabled = false);
+        }
+      });
+    });
+  </script>
 </body>
 </html>
