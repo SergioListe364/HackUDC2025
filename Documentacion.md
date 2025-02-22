@@ -20,10 +20,12 @@ KeKomo ofrece dos modos de uso: **grupo** e **individual**.
 
 ## Tecnologías usadas
 - **Frontend**: HTML, CSS, JavaScript.
+- **API**: Pyhton
 
 ## Instalación
 ### 1️⃣ Clonar el repositorrio.
 ### 2️⃣ Ejecutar el proyecto: abrir "index.html" en el navegador.
+### 3️⃣ Funcionamiento de la API.
 
 ## Estructura del proyecto  
 📁 **HackUDC2025** *(Repositorio principal)*  
