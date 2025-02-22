@@ -53,6 +53,17 @@ header{
     color: rgb(255, 255, 255);
 }
 
+a{
+  padding: 1rem 2rem;
+  font-size: 1.2rem;
+  background-color: white;
+  color: black;
+  border: 2px solid black;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s, color 0.3s;
+}
+
 #no_opciones .opcion.seleccionada {
     background-color: rgba(255, 0, 0, 0.73);
     color: rgb(255, 255, 255);
@@ -141,3 +152,21 @@ header{
     margin: auto;
     transition: all 0.2s ease;
 }
+
+a{
+    text-decoration: none;
+    padding: 1rem 2rem;
+    font-size: 1.2rem;
+    background-color: white;
+    color: black;
+    border: 2px solid black;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  
+  a:hover{
+    background-color: #45a049;
+    color: white;
+  }
