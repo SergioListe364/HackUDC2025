@@ -1,0 +1,54 @@
+.quemegusta {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.noquemegusta {
+    text-align: center;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+.opciones-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    max-width: 400px;
+    margin: auto;
+}
+
+.opcion {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 10px 20px;
+    margin: 5px;
+    border: 2px solid #0c0c0c;
+    border-radius: 10px;
+    cursor: pointer;
+    user-select: none;
+    transition: all 0.2s ease-in-out;
+    text-align: center;
+}
+
+.opcion.seleccionada {
+    background-color: #04ff00bb;
+    color: rgb(255, 255, 255);
+}
+
+#no_opciones .opcion.seleccionada {
+    background-color: rgba(255, 0, 0, 0.73);
+    color: rgb(255, 255, 255);
+}
+
+.opcion.desactivada {
+    opacity: 0.5;
+    pointer-events: none;
+}
