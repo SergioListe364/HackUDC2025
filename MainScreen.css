@@ -8,7 +8,7 @@ header{
     font-size: 2rem;
 }
 
-.quemegusta {
+.quemegusta, .solucion {
     text-align: center;
     font-family: 'Poppins', sans-serif;
     font-weight: 600;
@@ -51,6 +51,17 @@ header{
 .opcion.seleccionada {
     background-color: #04ff00bb;
     color: rgb(255, 255, 255);
+}
+.cuadroDecisión{
+    
+    background-color: #45A049;
+    text-align: center;
+    padding: 6px 9px;
+    color: white;
+    border-radius: 8px;
+    margin: auto;
+    transition: all 0.2s ease;
+
 }
 
 a{
@@ -137,6 +148,15 @@ a{
     pointer-events: none;
 }
 
+.divCuadroDescisión{
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10%;
+    font-size: 5rem;
+
+}
 .continuar {
     display: flex;
     justify-content: center;
